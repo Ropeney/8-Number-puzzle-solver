@@ -1,4 +1,4 @@
-## Find the most optimal solution using BFS
+## Find the most optimal solution using DFS
 # Hard
 # starting_node = Node.new("835416270", 0)
 # Med
@@ -10,25 +10,26 @@
 
 require_relative 'lib/puzzle'
 require_relative 'lib/node'
+require 'pqueue'
 
-starting_node = Node.new("813402765", 0)
-puzzle = Puzzle.new(starting_node.data)
+class Node
+  attr_accessor :manhattan_distance
+end
+
+puzzle = Puzzle.new("813402765")
+starting_node = Node.new(puzzle.grid, 0)
+starting_node.manhattan_distance = puzzle.manhattan_distance
+
 print "Starting...\n"
-puzzle.print_puzzle
 
 puzzle.print_results {
   counter = 0
   generated = [puzzle.grid]
-  solutions = [starting_node]
+  solutions = PQueue.new([starting_node]) { |a,b| a.manhattan_distance < b.manhattan_distance }
   completed_node = nil
 
   until solutions.length == 0 || completed_node do
-    current_node = solutions.shift
-
-    # if over 26 it's unsolvable
-    if current_node.depth > 26
-      next
-    end
+    current_node = solutions.pop
 
     directions = [:move_up, :move_right, :move_down, :move_left]
 
@@ -36,8 +37,9 @@ puzzle.print_results {
       puzzle = Puzzle.new(current_node.data.dup)
       if puzzle.send(direction) && !generated.include?(puzzle.grid)
         new_node = Node.new(puzzle.grid, current_node.depth + 1, current_node)
+        new_node.manhattan_distance = puzzle.manhattan_distance + current_node.depth
         current_node.children << current_node # redundent... but ya know...
-        solutions << new_node
+        solutions.push new_node
         generated << puzzle.grid
         if puzzle.complete?
           completed_node = new_node

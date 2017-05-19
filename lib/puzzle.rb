@@ -87,4 +87,24 @@ class Puzzle
 
     print "Steps to get path: #{steps}\n"
   end
+
+  def manhattan_distance
+    total = 0
+    @grid.split('').each do |item|
+      total += minimum_moves(item)
+    end
+
+    total
+  end
+
+  private
+    def minimum_moves(item)
+      return 0 if item == '0'
+      start = @grid.index(item)
+      finish = item.to_i - 1
+
+      vertical = ((start / 3) - (finish / 3)).abs
+      horizontal = ((start % 3) - (finish % 3)).abs
+      vertical + horizontal
+    end
 end
