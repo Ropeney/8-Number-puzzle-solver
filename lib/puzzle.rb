@@ -63,4 +63,28 @@ class Puzzle
       return true
     end
   end
+
+  def print_results
+    counter, completed_node = yield
+
+    print "Took #{counter} iterations\n"
+
+    print "Calculating path\n"
+
+    stack_to_parent = []
+    current_node = completed_node
+
+    while current_node != nil do
+      stack_to_parent << current_node
+      current_node = current_node.parent
+    end
+
+    steps = stack_to_parent.length
+
+    while stack_to_parent.length > 0 do
+      Puzzle.new(stack_to_parent.pop.data).print_puzzle
+    end
+
+    print "Steps to get path: #{steps}\n"
+  end
 end

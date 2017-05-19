@@ -1,4 +1,4 @@
-## Find the most optimal solution using BFS
+## Find the most optimal solution using DFS
 # Hard
 # starting_node = Node.new("835416270", 0)
 # Med
@@ -16,14 +16,15 @@ puzzle = Puzzle.new(starting_node.data)
 print "Starting...\n"
 puzzle.print_puzzle
 
+
 puzzle.print_results {
-  counter = 0
   generated = [puzzle.grid]
   solutions = [starting_node]
+  counter = 0
   completed_node = nil
 
   until solutions.length == 0 || completed_node do
-    current_node = solutions.shift
+    current_node = solutions.pop
 
     # if over 26 it's unsolvable
     if current_node.depth > 26
