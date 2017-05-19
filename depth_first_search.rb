@@ -11,7 +11,7 @@
 require_relative 'lib/puzzle'
 require_relative 'lib/node'
 
-starting_node = Node.new("013425786", 0)
+starting_node = Node.new("813402765", 0)
 puzzle = Puzzle.new(starting_node.data)
 print "Starting...\n"
 puzzle.print_puzzle
@@ -25,11 +25,6 @@ puzzle.print_results {
 
   until solutions.length == 0 || completed_node do
     current_node = solutions.pop
-
-    # if over 26 it's unsolvable
-    if current_node.depth > 26
-      next
-    end
 
     directions = [:move_up, :move_right, :move_down, :move_left]
 
