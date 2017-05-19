@@ -1,4 +1,4 @@
-## Find the most optimal solution using DFS
+## Find the most optimal solution using A*
 # Hard
 # starting_node = Node.new("835416270", 0)
 # Med
@@ -16,7 +16,7 @@ class Node
   attr_accessor :manhattan_distance
 end
 
-puzzle = Puzzle.new("813402765")
+puzzle = Puzzle.new("761250843")
 starting_node = Node.new(puzzle.grid, 0)
 starting_node.manhattan_distance = puzzle.manhattan_distance
 

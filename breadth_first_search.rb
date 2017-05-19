@@ -11,7 +11,7 @@
 require_relative 'lib/puzzle'
 require_relative 'lib/node'
 
-starting_node = Node.new("813402765", 0)
+starting_node = Node.new("761250843", 0)
 puzzle = Puzzle.new(starting_node.data)
 print "Starting...\n"
 puzzle.print_puzzle
